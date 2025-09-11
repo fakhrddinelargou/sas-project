@@ -6,6 +6,7 @@
 
 // STRUCT
 
+	int countId = 5;
 struct informations
 {
 	int id;
@@ -17,7 +18,7 @@ struct informations
 };
 struct count
 {
-	int count;
+	int count ;
 };
 
 
@@ -70,7 +71,8 @@ void ajoute(struct informations footballPlayers[], struct count counter[])
 		scanf("%d", &footballPlayers[C].buts);
 		getchar();
 		printf("________________________________________________\n");
-		footballPlayers[C].id = C + 1;
+		footballPlayers[C].id = countId ;
+		countId++;
 		counter[0].count++;
 	}
 
@@ -118,7 +120,8 @@ void ajoute(struct informations footballPlayers[], struct count counter[])
 			scanf("%d", &footballPlayers[C2].buts);
 			getchar();
 			printf("________________________________________________\n");
-			footballPlayers[C2].id = C2 + 1;
+			footballPlayers[C2].id = countId;
+			countId++;
 			counter[0].count++;
 		}
 	}
@@ -158,7 +161,7 @@ void affiche(struct informations footballPlayers[], struct count counter[])
 		printf("--- ");
 		scanf("%d", &AFM);
 		getchar();
-	} while (AFM < 1 || AFM > 3);
+	} while (AFM < 1 || AFM > 4);
 
 
 	if(AFM == 1){
@@ -245,10 +248,13 @@ void affiche(struct informations footballPlayers[], struct count counter[])
 
 	if (AFM == 4)
 	{
+	    afficheByPoste:
+	    int found = 0;
+	    int AB;
 do{
 	printf("________________________________________________\n");
 	printf("\n");
-printf("Quel poste voulez-vous afficher : ( 1. gardien , 2. defenseur , 3. milieu , 4. attaquant )");
+printf("Quel poste voulez-vous afficher ( 1. gardien , 2. defenseur , 3. milieu , 4. attaquant ) : ");
 	scanf("%d",&AFP);
 	printf("\n");
 	printf("________________________________________________\n");
@@ -257,26 +263,29 @@ printf("Quel poste voulez-vous afficher : ( 1. gardien , 2. defenseur , 3. milie
 
 
 
+
+
         for(int index = 0 ; index < C ; index++){
 
-            if(strcmp(positons[AFP - 1],footballPlayers[index].poste) == 0){
 
 
-                 	for (int i = 0; i < C; i++)
-		{
+
+            if(strcmp(positions[AFP - 1],footballPlayers[index].poste) == 0){
+
+
 		    printf("________________________________________________\n");
-			printf("ID : %d\n", footballPlayers[i].id);
-			printf("Name : %s\n", footballPlayers[i].nom_prenom);
-			printf("numero mailot : %d\n", footballPlayers[i].numero_maillot);
+			printf("ID : %d\n", footballPlayers[index].id);
+			printf("Name : %s\n", footballPlayers[index].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[index].numero_maillot);
 
-			printf("poste : %s\n", footballPlayers[i].poste);
-			printf("age : %d\n", footballPlayers[i].age);
+			printf("poste : %s\n", footballPlayers[index].poste);
+			printf("age : %d\n", footballPlayers[index].age);
 
-			printf("buts : %d\n", footballPlayers[i].buts);
+			printf("buts : %d\n", footballPlayers[index].buts);
 			printf("________________________________________________\n");
-		}
 
 
+            found++;
 
             }
 
@@ -286,18 +295,39 @@ printf("Quel poste voulez-vous afficher : ( 1. gardien , 2. defenseur , 3. milie
 
 
 
+   if(found == 0){
 
+
+		printf("______________________________________\n");
+		printf("Player Not Found :( \n");
+		printf("______________________________________\n");
+
+   }
+
+
+do{
+
+printf("1. affiche d'autre /\\ 2. back : ");
+scanf("%d",&AB);
+}while(AB < 1 || AB > 2);
+
+if(AB == 1){
+    goto afficheByPoste;
+}
 
 
 	}
 }
 
+// SEARCH
+
 void search(struct informations footballPlayers[], struct count counter[])
 {
-
+    searchAgain:
 	int C = counter[0].count;
 	int found = 0;
 	int SH;
+	int AB =0 ;
 	do
 	{
 		printf("\n");
@@ -376,20 +406,27 @@ void search(struct informations footballPlayers[], struct count counter[])
 		printf("Player Not Found :( \n");
 		printf("______________________________________\n");
 	}
-	else if (found > 0)
-	{
 
-		printf("______________________________________\n");
-		printf("Modifiquation est un  done :) \n");
-		printf("______________________________________\n");
-	}
+	do{
+
+printf("1. Recherche pour d'autre /\\ 2. back : ");
+scanf("%d",&AB);
+}while(AB < 1 || AB > 2);
+
+if(AB == 1){
+    goto searchAgain;
 }
+
+}
+
+//MODIFIER
 
 void modifier(struct informations footballPlayers[], struct count counter[])
 {
-
+modifierAgain:
 	char positions[4][20] = {"gardien", "defenseur", "milieu", "attaquant"};
 	int MDN;
+	int AB = 0;
 	int found = 0;
 	do
 	{
@@ -549,12 +586,26 @@ void modifier(struct informations footballPlayers[], struct count counter[])
 		printf("Player Not Found :( \n");
 		printf("______________________________________\n");
 	}
+
+
+	do{
+
+printf("1. Modifier d'autre /\\ 2. back : ");
+scanf("%d",&AB);
+}while(AB < 1 || AB > 2);
+
+if(AB == 1){
+    goto modifierAgain ;
 }
+}
+
+// SUPPRIMMER
 
 void supprimer(struct informations footballPlayers[], struct count counter[])
 {
-
+supprimerAgain:
 	int MDN;
+	int AB = 0 ;
 	int found = 0;
 	do
 	{
@@ -571,7 +622,7 @@ void supprimer(struct informations footballPlayers[], struct count counter[])
 		int id;
 		int P;
 		int SR;
-		int FN;
+		int FN = 0 ;
 		printf("Enter ID De joueur : ");
 		scanf("%d", &id);
 
@@ -581,11 +632,18 @@ void supprimer(struct informations footballPlayers[], struct count counter[])
 			if (id == footballPlayers[i].id)
 			{
 				printf("__________________________________\n");
+
+				printf("ID : %d\n", footballPlayers[i].id);
+				printf("PLAYER : %s\n", footballPlayers[i].nom_prenom);
+				printf("______________________________________\n");
 				printf("you sure wanna delete this player ' 1. Yes /\\ 2. No' : ");
 				scanf("%d", &SR);
+
 				FN++;
 			}
 		}
+
+
 
 		if (FN == 0)
 		{
@@ -728,20 +786,236 @@ void supprimer(struct informations footballPlayers[], struct count counter[])
 			counter[0].count--;
 		}
 
-		/*
-			if(found == 0)
-			{
 
-				printf("______________________________________\n");
-				printf("Player Not Found :( \n");
-				printf("______________________________________\n");
 
-			}
-
-		*/
 	}
+	do{
+
+printf("1. Supprimer d'autre /\\ 2. back : ");
+scanf("%d",&AB);
+}while(AB < 1 || AB > 2);
+
+if(AB == 1){
+    goto supprimerAgain;
+}
 }
 
+// STATISTIQUES
+
+void statistiques(struct informations footballPlayers[], struct count counter[]){
+
+int STT;
+int C = counter[0].count;
+int AB;
+goAgain:
+
+	do
+	{
+	printf("\n");
+		printf("\n");
+		printf("      ________________ STATISTIQUES ________________");
+		printf("\n");
+		printf("________________________________________________\n");
+		printf("1. Afficher le nombre total de joueurs dans l’équipe : \n");
+		printf("________________________________________________\n");
+		printf("2. Afficher l’âge moyen des joueurs : \n");
+		printf("________________________________________________\n");
+		printf("3. Afficher les joueurs ayant marqué plus de X buts  : \n");
+		printf("________________________________________________\n");
+		printf("4. Afficher le meilleur buteur (joueur avec le maximum de buts) : \n");
+		printf("________________________________________________\n");
+		printf("5. Afficher le joueur le plus jeune et le plus âgé : \n");
+		printf("________________________________________________\n");
+		printf("--- ");
+		scanf("%d", &STT);
+		getchar();
+
+		printf("\n");
+		printf("\n");
+	} while (STT < 1 || STT > 5);
+
+
+
+	if(STT == 1){
+        printf("le nombre total de joueurs est un : %d",C);
+	}
+
+	if(STT == 2){
+           int total = 0;
+
+    for(int i = 0 ; i < C - 1 ; i++){
+        total += footballPlayers[i].age;
+    }
+          int  moyen = total / C ;
+        printf("l’âge moyen des joueurs : %d",moyen);
+	}
+
+
+	if(STT == 3){
+
+        int BT;
+        do{
+        printf("Enter nomber de buts :  ");
+        scanf("%d",&BT);
+        }while(BT < 1);
+
+
+        for(int i = 0 ; i < C ; i++){
+
+
+            if(footballPlayers[i].buts > BT){
+
+
+                	printf("ID : %d\n", footballPlayers[i].id);
+			printf("Name : %s\n", footballPlayers[i].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[i].numero_maillot);
+
+			printf("poste : %s\n", footballPlayers[i].poste);
+			printf("age : %d\n", footballPlayers[i].age);
+
+			printf("buts : %d\n", footballPlayers[i].buts);
+			printf("________________________________________________\n");
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+	}
+
+
+	if(STT == 4){
+
+        int maxButs = 0;
+        for(int  i =0 ; i < C  ; i++){
+
+
+            if(footballPlayers[i].buts > maxButs){
+                maxButs = footballPlayers[i].buts;
+            }
+
+
+        }
+
+
+
+        for(int i = 0 ; i < C ; i++){
+
+            if(footballPlayers[i].buts == maxButs){
+
+
+                	printf("ID : %d\n", footballPlayers[i].id);
+			printf("Name : %s\n", footballPlayers[i].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[i].numero_maillot);
+
+			printf("poste : %s\n", footballPlayers[i].poste);
+			printf("age : %d\n", footballPlayers[i].age);
+
+			printf("buts : %d\n", footballPlayers[i].buts);
+			printf("________________________________________________\n");
+
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+	}
+
+
+
+	if(STT == 4){
+         int plusJeune = 0;
+         int plusAge = 0;
+        for(int  i =0 ; i < C  ; i++){
+
+
+            if(footballPlayers[i].age > plusJeune){
+                plusJeune = footballPlayers[i].buts;
+            }
+        }
+        for(int  i =0 ; i < C  ; i++){
+
+
+            if(footballPlayers[i].age > plusAge){
+                plusAge = footballPlayers[i].buts;
+            }
+        }
+
+
+
+        for(int u = 0 ; u < C ; u++){
+
+
+                 for(int i = 0 ; i < C ; i++){
+
+            if(footballPlayers[i].age == plusJeune){
+
+
+                    printf("LE JOUEUR PLUS JEUNE : \n");
+                	printf("ID : %d\n", footballPlayers[i].id);
+			printf("Name : %s\n", footballPlayers[i].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[i].numero_maillot);
+
+			printf("poste : %s\n", footballPlayers[i].poste);
+			printf("age : %d\n", footballPlayers[i].age);
+
+			printf("buts : %d\n", footballPlayers[i].buts);
+			printf("________________________________________________\n");
+
+
+
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+	}
+
+
+
+	}
+
+
+
+
+
+
+
+
+	        do{
+
+printf("1. d'autre /\\ 2. back : ");
+scanf("%d",&AB);
+}while(AB < 1 || AB > 2);
+
+if(AB == 1){
+    goto goAgain;
+}
+}
 int main()
 {
 
@@ -761,7 +1035,8 @@ menu:
 
 	do
 	{
-
+	printf("\n");
+		printf("\n");
 		printf("      ________________ MENU ________________");
 		printf("\n");
 		printf("________________________________________________\n");
@@ -775,16 +1050,11 @@ menu:
 		printf("________________________________________________\n");
 		printf("5. Supprimer un Joueur : \n");
 		printf("________________________________________________\n");
-		printf("1. enterjfjfjfjjjdjdjd\n");
-		printf("________________________________________________\n");
-		printf("1. enterjfjfjfjjjdjdjd\n");
-		printf("________________________________________________\n");
-		printf("1. enterjfjfjfjjjdjdjd\n");
+		printf("6. Statistiques : \n");
 		printf("________________________________________________\n");
 		printf("--- ");
 		scanf("%d", &choose);
 		getchar();
-
 		printf("\n");
 		printf("\n");
 	} while (choose < 1 || choose > 8);
@@ -817,6 +1087,10 @@ menu:
 		supprimer(footballPlayers, counter);
 		goto menu;
 		break;
+    case 6:
+        statistiques(footballPlayers,counter);
+        goto menu;
+        break;
 	}
 
 	return 0;
