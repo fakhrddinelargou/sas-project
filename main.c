@@ -579,7 +579,9 @@ modifierAgain:
 		}
 	}
 
-	if (found == 0)
+
+
+/* if (found == 0)
 	{
 
 		printf("______________________________________\n");
@@ -587,7 +589,7 @@ modifierAgain:
 		printf("______________________________________\n");
 	}
 
-
+*/
 	do{
 
 printf("1. Modifier d'autre /\\ 2. back : ");
@@ -837,7 +839,9 @@ goAgain:
 
 
 	if(STT == 1){
-        printf("le nombre total de joueurs est un : %d",C);
+            printf("_______________________________________\n");
+        printf("le nombre total de joueurs est un : %d\n",C);
+	printf("_______________________________________\n");
 	}
 
 	if(STT == 2){
@@ -847,7 +851,9 @@ goAgain:
         total += footballPlayers[i].age;
     }
           int  moyen = total / C ;
-        printf("l’âge moyen des joueurs : %d",moyen);
+          printf("_______________________________________\n");
+        printf("l’âge moyen des joueurs : %d\n",moyen);
+        printf("_______________________________________\n");
 	}
 
 
@@ -939,21 +945,22 @@ goAgain:
 
 
 
-	if(STT == 4){
-         int plusJeune = 0;
+	if(STT == 5){
+
+
+
+
+     int plusJeune = footballPlayers[0].age;
+        for(int  i =0 ; i < C  ; i++){
+            if(footballPlayers[i].age < plusJeune){
+                plusJeune = footballPlayers[i].age;
+            }
+        }
          int plusAge = 0;
         for(int  i =0 ; i < C  ; i++){
 
-
-            if(footballPlayers[i].age > plusJeune){
-                plusJeune = footballPlayers[i].buts;
-            }
-        }
-        for(int  i =0 ; i < C  ; i++){
-
-
             if(footballPlayers[i].age > plusAge){
-                plusAge = footballPlayers[i].buts;
+                plusAge = footballPlayers[i].age;
             }
         }
 
@@ -962,31 +969,71 @@ goAgain:
         for(int u = 0 ; u < C ; u++){
 
 
-                 for(int i = 0 ; i < C ; i++){
 
-            if(footballPlayers[i].age == plusJeune){
+
+            if(footballPlayers[u].age == plusJeune){
 
 
                     printf("LE JOUEUR PLUS JEUNE : \n");
-                	printf("ID : %d\n", footballPlayers[i].id);
-			printf("Name : %s\n", footballPlayers[i].nom_prenom);
-			printf("numero mailot : %d\n", footballPlayers[i].numero_maillot);
+                	printf("ID : %d\n", footballPlayers[u].id);
+			printf("Name : %s\n", footballPlayers[u].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[u].numero_maillot);
 
-			printf("poste : %s\n", footballPlayers[i].poste);
-			printf("age : %d\n", footballPlayers[i].age);
+			printf("poste : %s\n", footballPlayers[u].poste);
+			printf("age : %d\n", footballPlayers[u].age);
 
-			printf("buts : %d\n", footballPlayers[i].buts);
+			printf("buts : %d\n", footballPlayers[u].buts);
 			printf("________________________________________________\n");
 
-
-
+              printf("\n");
+              printf("\n");
 
 
             }
 
 
 
-        }
+
+
+
+
+
+
+
+	}
+
+
+
+
+
+	for(int u = 0 ; u < C ; u++){
+
+
+
+
+            if(footballPlayers[u].age == plusAge){
+
+
+                    printf("LE JOUEUR PLUS AGE : \n");
+                	printf("ID : %d\n", footballPlayers[u].id);
+			printf("Name : %s\n", footballPlayers[u].nom_prenom);
+			printf("numero mailot : %d\n", footballPlayers[u].numero_maillot);
+
+			printf("poste : %s\n", footballPlayers[u].poste);
+			printf("age : %d\n", footballPlayers[u].age);
+
+			printf("buts : %d\n", footballPlayers[u].buts);
+			printf("________________________________________________\n");
+
+              printf("\n");
+              printf("\n");
+
+
+            }
+
+
+
+
 
 
 
@@ -997,7 +1044,14 @@ goAgain:
 
 
 
+
+
+
+
+
+
 	}
+
 
 
 
@@ -1016,6 +1070,9 @@ if(AB == 1){
     goto goAgain;
 }
 }
+
+
+
 int main()
 {
 
@@ -1026,7 +1083,7 @@ int main()
 			{1, "fakhrddine largou", 7, "milieu", 56, 210},
 			{2, "anas talbi", 5, "defenseur", 25, 80},
 			{3, "yassine bono", 1, "gardien", 34, 1},
-			{4, "yassine bono", 0, "milieu", 3, 10}
+			{4, "yassine bono", 0, "milieu", 98, 10}
 
 		};
 	counter[0].count = 4;
